@@ -55,7 +55,7 @@ def visualize_data(data):
     TODO:
     - Create scatter plots for each feature vs target
     - Save the figure
-    - Identify which features look most important
+    - Identify which features look most important - carat, cut, color 
     
     Args:
         data: your DataFrame
@@ -205,7 +205,7 @@ def make_prediction(model):
 
 if __name__ == "__main__":
     # Step 1: Load and explore
-    data = load_and_explore_data(DATA_FILE)
+    data = load_and_explore_data('diamond_features.csv')
     
     # Step 2: Visualize
     visualize_data(data)

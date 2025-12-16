@@ -1,5 +1,7 @@
 A Linear Regression Model on the Prices of Diamonds.
+
+
 Variables:
-Carat
-Color
-Cut
+Carat,
+Color,
+Cut.
