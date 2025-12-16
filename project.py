@@ -38,9 +38,17 @@ def load_and_explore_data(filename):
     print("LOADING AND EXPLORING DATA")
     print("=" * 70)
     
-    # Your code here
+    data = pd.read_csv(filename)
+
+    print(f"\nDatabase Shape: {data.shape[0]} rows, {data.shape[1]} columns")
     
-    pass
+    print(f"\nFirst 5 rows:")
+    print(data.head())
+
+    print(f"\nSummary Statistics:")
+    print(data.describe())
+
+    return data
 
 
 def visualize_data(data):
@@ -50,7 +58,7 @@ def visualize_data(data):
     TODO:
     - Create scatter plots for each feature vs target
     - Save the figure
-    - Identify which features look most important
+    - Identify which features look most important - carat, cut, color 
     
     Args:
         data: your DataFrame
@@ -173,7 +181,7 @@ def make_prediction(model):
 
 if __name__ == "__main__":
     # Step 1: Load and explore
-    data = load_and_explore_data(DATA_FILE)
+    data = load_and_explore_data('diamond_features.csv')
     
     # Step 2: Visualize
     visualize_data(data)
