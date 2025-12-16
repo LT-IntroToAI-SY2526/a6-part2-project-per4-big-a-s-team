@@ -96,7 +96,25 @@ def prepare_and_split_data(data):
     print("PREPARING AND SPLITTING DATA")
     print("=" * 70)
     
-    # Your code here
+    features_columns = ['Carat', 'Cut', 'Color']
+    X = data[features_columns]
+    y = data['Price']
+
+    print(f"Features (X) shape: {X.shape}")
+    print(f"Target (y) shape: {y.shape}")
+    print(f"\nFeatures Columns: {list(X.columns)}")
+
+    X_train = X.iloc[:15]
+    X_test = X.iloc[15:]
+    # y_train = y.iloc[]
+    # y
+
+    #return X, y, X_train, X_test, y_train, y_test
+
+
+
+
+
     
     pass
 
