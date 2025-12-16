@@ -8,9 +8,9 @@ Group Members:
 - 
 - 
 
-Dataset: [Name of your dataset]
-Predicting: [What you're predicting]
-Features: [List your features]
+Dataset: [Diamond Price Dataset]
+Predicting: [Diamond Price]
+Features: [Carat, cut, color]
 """
 
 import pandas as pd
@@ -21,7 +21,7 @@ from sklearn.metrics import mean_squared_error, r2_score
 import numpy as np
 
 # TODO: Update this with your actual filename
-DATA_FILE = 'your_data.csv'
+DATA_FILE = 'diamond_features.csv'
 
 def load_and_explore_data(filename):
     """
@@ -39,8 +39,13 @@ def load_and_explore_data(filename):
     print("=" * 70)
     
     # Your code here
-    
-    pass
+    data = pd.read_csv(filename)
+    print(f"\n Dataset shape: {data.shape[0]} rows, {data.shape[1]} columns")
+    print("\nFirst 5 rows:")
+    print(data.head())
+    print(f"\nBasic statistics:")
+    print(data.describe())
+    return data
 
 
 def visualize_data(data):
@@ -63,8 +68,35 @@ def visualize_data(data):
     
     # Your code here
     # Hint: Use subplots like in Part 2!
+    plt.figure(figsize=(10,6))
+    fig, axes = plt.subplots(2,2,figsize=(12,10))
+    fig.suptitle('Diamond Features vs Price', fontsize = 16, fontweight='bold')
     
-    pass
+    axes[0,0].scatter(data['carat'], data['price'], color = 'blue', alpha = 0.6)
+    axes[0,0].set_xlabel('Carat')
+    axes[0,0].set_ylabel('Price($)')
+    axes[0,0].set_title('Carat vs Price')
+    axes[0,0].grid(True, alpha=0.3)
+
+    axes[0,1].scatter(data['cut'], data['price'], color = 'red', alpha = 0.6)
+    axes[0,1].set_xlabel('Cut')
+    axes[0,1].set_ylabel('Price($)')
+    axes[0,1].set_title('Cut vs Price')
+    axes[0,1].grid(True, alpha=0.3)
+
+    axes[1,0].scatter(data['color'], data['price'], color = 'yellow', alpha = 0.6)
+    axes[1,0].set_xlabel('Color')
+    axes[1,0].set_ylabel('Price($)')
+    axes[1,0].set_title('Color vs Price')
+    axes[1,0].grid(True, alpha=0.3)
+
+    axes[1, 1].text(0.5, 0.5, 'Space for additional features', 
+                    ha='center', va='center', fontsize=12)
+    axes[1, 1].axis('off')
+
+    plt.tight_layout()
+    plt.savefig('diamond_features.png', dpi=300, bbox_inches='tight')
+    plt.show()
 
 
 def prepare_and_split_data(data):
@@ -178,24 +210,23 @@ if __name__ == "__main__":
     # Step 2: Visualize
     visualize_data(data)
     
-    # Step 3: Prepare and split
-    X_train, X_test, y_train, y_test = prepare_and_split_data(data)
+    # # Step 3: Prepare and split
+    # X_train, X_test, y_train, y_test = prepare_and_split_data(data)
     
-    # Step 4: Train
-    model = train_model(X_train, y_train)
+    # # Step 4: Train
+    # model = train_model(X_train, y_train)
     
-    # Step 5: Evaluate
-    predictions = evaluate_model(model, X_test, y_test)
+    # # Step 5: Evaluate
+    # predictions = evaluate_model(model, X_test, y_test)
     
-    # Step 6: Make a prediction, add features as an argument
-    make_prediction(model)
+    # # Step 6: Make a prediction, add features as an argument
+    # make_prediction(model)
     
-    print("\n" + "=" * 70)
-    print("PROJECT COMPLETE!")
-    print("=" * 70)
-    print("\nNext steps:")
-    print("1. Analyze your results")
-    print("2. Try improving your model (add/remove features)")
-    print("3. Create your presentation")
-    print("4. Practice presenting with your group!")
-
+    # print("\n" + "=" * 70)
+    # print("PROJECT COMPLETE!")
+    # print("=" * 70)
+    # print("\nNext steps:")
+    # print("1. Analyze your results")
+    # print("2. Try improving your model (add/remove features)")
+    # print("3. Create your presentation")
+    # print("4. Practice presenting with your group!")
