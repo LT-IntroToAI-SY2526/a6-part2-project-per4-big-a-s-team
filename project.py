@@ -120,20 +120,23 @@ def prepare_and_split_data(data):
     print("PREPARING AND SPLITTING DATA")
     print("=" * 70)
     
-    features_columns = ['Carat', 'Cut', 'Color']
+    features_columns = ['carat', 'cut', 'color']
     X = data[features_columns]
-    y = data['Price']
+    y = data['price']
 
     print(f"Features (X) shape: {X.shape}")
     print(f"Target (y) shape: {y.shape}")
     print(f"\nFeatures Columns: {list(X.columns)}")
 
-    X_train = X.iloc[:15]
-    X_test = X.iloc[15:]
-    # y_train = y.iloc[]
-    # y
+    X_train = X.iloc[:100] # .iloc[row_index, col_indecx] exclusive slicing
+    X_test = X.iloc[100:125]
+    y_train = y.iloc[:100]
+    y_test = y.iloc[100:125]
 
-    #return X, y, X_train, X_test, y_train, y_test
+    print(f"Training Set: {len(X_train)} samples (first 100 diamonds)")
+    print(f"Testing Set: {len(X_train)} samples (25 diamons)")
+
+    return X_train, X_test, y_train, y_test
 
 
 
@@ -228,8 +231,8 @@ if __name__ == "__main__":
     # Step 2: Visualize
     visualize_data(data)
     
-    # # Step 3: Prepare and split
-    # X_train, X_test, y_train, y_test = prepare_and_split_data(data)
+    # Step 3: Prepare and split
+    X_train, X_test, y_train, y_test = prepare_and_split_data(data)
     
     # # Step 4: Train
     # model = train_model(X_train, y_train)
