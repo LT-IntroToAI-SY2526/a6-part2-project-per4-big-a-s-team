@@ -40,22 +40,21 @@ def load_and_explore_data(filename):
     
     # Your code here
     data = pd.read_csv(filename)
+    mapping = {
+    'Fair': 1.0,
+    'Good': 2.0,
+    'Very Good': 3.0,
+    'Premium': 4.0,
+    'Ideal': 5.0
+    }
+    data['cut'] = data['cut'].map(mapping)
+
     print(f"\n Dataset shape: {data.shape[0]} rows, {data.shape[1]} columns")
     print("\nFirst 5 rows:")
     print(data.head())
     print(f"\nBasic statistics:")
     print(data.describe())
     return data
-
-mapping = {
-    'Fair': 1.0,
-    'Good': 2.0,
-    'Very Good': 3.0,
-    'Premium': 4.0,
-    'Ideal': 5.0
-}
-
-cuts = ['Fair', 'Good']
 
 def visualize_data(data):
     """
@@ -169,26 +168,26 @@ def train_model(X_train, y_train, feature_names):
     print("TRAINING MODEL")
     print("=" * 70)
     
-    # model = LinearRegression()
-    # model.fit(X_train, y_train)
+    model = LinearRegression()
+    model.fit(X_train, y_train)
     
-    # print(f"\n=== Model Training Complete ===")
-    # print(f"Intercept: ${model.intercept_:.2f}")
-    # print(f"\nCoefficients:")
-    # for name, coef in zip(feature_names, model.coef_):
-    #     print(f"  {name}: {coef:.2f}")
+    print(f"\n=== Model Training Complete ===")
+    print(f"Intercept: ${model.intercept_:.2f}")
+    print(f"\nCoefficients:")
+    for name, coef in zip(feature_names, model.coef_):
+        print(f"  {name}: {coef:.2f}")
     
-    # print(f"\nEquation:")
-    # equation = f"Price = "
-    # for i, (name, coef) in enumerate(zip(feature_names, model.coef_)):
-    #     if i == 0:
-    #         equation += f"{coef:.2f} × {name}"
-    #     else:
-    #         equation += f" + ({coef:.2f}) × {name}"
-    # equation += f" + {model.intercept_:.2f}"
-    # print(equation)
+    print(f"\nEquation:")
+    equation = f"Price = "
+    for i, (name, coef) in enumerate(zip(feature_names, model.coef_)):
+        if i == 0:
+            equation += f"{coef:.2f} × {name}"
+        else:
+            equation += f" + ({coef:.2f}) × {name}"
+    equation += f" + {model.intercept_:.2f}"
+    print(equation)
     
-    # return model
+    return model
 
 
 def evaluate_model(model, X_test, y_test, feature_names):
@@ -214,27 +213,27 @@ def evaluate_model(model, X_test, y_test, feature_names):
     print("EVALUATING MODEL")
     print("=" * 70)
 
-    # predictions = model.predict(X_test)
+    predictions = model.predict(X_test)
 
-    # r2 = r2_score(y_test, predictions)
-    # mse = mean_squared_error(y_test, predictions)
-    # rmse = np.sqrt(mse)
+    r2 = r2_score(y_test, predictions)
+    mse = mean_squared_error(y_test, predictions)
+    rmse = np.sqrt(mse)
 
-    # print(f"\n=== Model Performance ===")
-    # print(f"R² Score: {r2:.4f}")
-    # print(f" -> Model explains {r2*100:.2f}% of price variation")
+    print(f"\n=== Model Performance ===")
+    print(f"R² Score: {r2:.4f}")
+    print(f" -> Model explains {r2*100:.2f}% of price variation")
     
-    # print(f"\nRoot Mean Squared Error: ${rmse:.2f}")
-    # print(f" -> On average, perdictions are off by ${rmse:.2f}")
+    print(f"\nRoot Mean Squared Error: ${rmse:.2f}")
+    print(f" -> On average, perdictions are off by ${rmse:.2f}")
     
-    # print(f"\n=== Feature Importance ===")
-    # feature_importance = list(zip(feature_names, np.abs(model.coef_)))
-    # feature_importance.sort(key=lambda x: x[1], reverse=True)
+    print(f"\n=== Feature Importance ===")
+    feature_importance = list(zip(feature_names, np.abs(model.coef_)))
+    feature_importance.sort(key=lambda x: x[1], reverse=True)
 
-    # for i, (name, importance) in enumerate(feature_importance, 1):
-    #     print(f"{i}. {name}: {importance:.2f}")
+    for i, (name, importance) in enumerate(feature_importance, 1):
+        print(f"{i}. {name}: {importance:.2f}")
 
-    # return predictions    
+    return predictions    
 
 # def compare_predictions(y_test, predictions, num_examples=5):
 #     """
@@ -302,14 +301,14 @@ if __name__ == "__main__":
     # Step 3: Prepare and split
     X_train, X_test, y_train, y_test = prepare_and_split_data(data)
     
-    # # Step 4: Train
-    # model = train_model(X_train, y_train, ['carat', 'cut', 'color'])
+    # Step 4: Train
+    model = train_model(X_train, y_train, ['carat', 'cut', 'color'])
     
-    # # # Step 5: Evaluate
-    # predictions = evaluate_model(model, X_test, y_test, ['carat', 'cut', 'color'])
+    # # Step 5: Evaluate
+    predictions = evaluate_model(model, X_test, y_test, ['carat', 'cut', 'color'])
     
-    # # # Step 6: Make a prediction, add features as an argument
-    # make_prediction(model, 1.2, "Good", "I")
+    # # Step 6: Make a prediction, add features as an argument
+    #make_prediction(model, 1.2, "Good", "I")
     
     # print("\n" + "=" * 70)
     # print("PROJECT COMPLETE!")
