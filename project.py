@@ -3,10 +3,10 @@ Multivariable Linear Regression Project
 Assignment 6 Part 3
 
 Group Members:
-- 
-- 
-- 
-- 
+- Fern
+- Alexis
+- Piero
+- Kingston
 
 Dataset: [Diamond Price Dataset]
 Predicting: [Diamond Price]
