@@ -92,10 +92,10 @@ def visualize_data(data):
     axes[0,1].set_title('Cut vs Price')
     axes[0,1].grid(True, alpha=0.3)
 
-    axes[1,0].scatter(data['color'], data['price'], color = 'yellow', alpha = 0.6)
-    axes[1,0].set_xlabel('Color')
+    axes[1,0].scatter(data['table'], data['price'], color = 'yellow', alpha = 0.6)
+    axes[1,0].set_xlabel('Table')
     axes[1,0].set_ylabel('Price($)')
-    axes[1,0].set_title('Color vs Price')
+    axes[1,0].set_title('Table vs Price')
     axes[1,0].grid(True, alpha=0.3)
 
     axes[1, 1].text(0.5, 0.5, 'Space for additional features', 
@@ -128,7 +128,7 @@ def prepare_and_split_data(data):
     print("PREPARING AND SPLITTING DATA")
     print("=" * 70)
     
-    features_columns = ['carat', 'cut', 'color']
+    features_columns = ['carat', 'cut', 'table']
     X = data[features_columns]
     y = data['price']
 
@@ -235,29 +235,29 @@ def evaluate_model(model, X_test, y_test, feature_names):
 
     return predictions    
 
-# def compare_predictions(y_test, predictions, num_examples=5):
-#     """
-#     Show side-by-side comparison of actual vs predicted prices
+def compare_predictions(y_test, predictions, num_examples=5):
+    """
+    Show side-by-side comparison of actual vs predicted prices
     
-#     Args:
-#         y_test: actual prices
-#         predictions: predicted prices
-#         num_examples: number of examples to show
-#     """
-#     print(f"\n=== Prediction Comparison ===")
-#     print(f"{'Actual Price':<15} {'Predicted Price':<18} {''}")
-#     print("-" * 60)
+    Args:
+        y_test: actual prices
+        predictions: predicted prices
+        num_examples: number of examples to show
+    """
+    print(f"\n=== Prediction Comparison ===")
+    print(f"{'Actual Price':<15} {'Predicted Price':<18} {''}")
+    print("-" * 60)
 
-#     for i in range(min(num_examples, len(y_test))):
-#         actual = y_test.iloc[i]
-#         predicted = predictions[i]
-#         error = actual - predicted
-#         pct_error = (abs(error) / actual) * 100
+    for i in range(min(num_examples, len(y_test))):
+        actual = y_test.iloc[i]
+        predicted = predictions[i]
+        error = actual - predicted
+        pct_error = (abs(error) / actual) * 100
 
-#         print(f"${actual:>13.2f} ${predicted:>13.2f} ${error:>10.2f} {pct_error:>6.2f}%")
+        print(f"${actual:>13.2f} ${predicted:>13.2f} ${error:>10.2f} {pct_error:>6.2f}%")
 
 
-def make_prediction(model, carat, cut, color):
+def make_prediction(model, carat, cut, table):
     """
     Make a prediction for a new example
     
@@ -274,21 +274,21 @@ def make_prediction(model, carat, cut, color):
     print("EXAMPLE PREDICTION")
     print("=" * 70)
     
-    # diamond_features = pd.DataFrame([[carat, cut, color]],
-    #                               columns=['Carat', 'Cut', 'Color'])
-    # predicted_price = model.predict(diamond_features)[0]
+    diamond_features = pd.DataFrame([[carat, cut, table]],
+                                  columns=['carat', 'cut', 'table'])
+    predicted_price = model.predict(diamond_features)[0]
 
-    # print(f"\n=== New Prediction ===")
-    # print(f"House features: {carat:.0f} carats, {cut} cut, {color}  color")
-    # print(f"Predicted price: ${predicted_price:,.2f}")
+    print(f"\n=== New Prediction ===")
+    print(f"House features: {carat:.0f} carats, {cut} cut, {table}  table")
+    print(f"Predicted price: ${predicted_price:,.2f}")
 
-    # return predicted_price
+    return predicted_price
     
     # Your code here
     # Example: If predicting house price with [sqft, bedrooms, bathrooms]
     # sample = pd.DataFrame([[2000, 3, 2]], columns=feature_names)
     
-    pass
+    
 
 
 if __name__ == "__main__":
@@ -306,15 +306,17 @@ if __name__ == "__main__":
     
     # # Step 5: Evaluate
     predictions = evaluate_model(model, X_test, y_test, ['carat', 'cut', 'color'])
+
+    compare_predictions(y_test, predictions)
+
+    # Step 6: Make a prediction, add features as an argument
+    make_prediction(model, 1.2, 2.0, 50)
     
-    # # Step 6: Make a prediction, add features as an argument
-    #make_prediction(model, 1.2, "Good", "I")
-    
-    # print("\n" + "=" * 70)
-    # print("PROJECT COMPLETE!")
-    # # print("=" * 70)
-    # print("\nNext steps:")
-    # print("1. Analyze your results")
-    # print("2. Try improving your model (add/remove features)")
-    # print("3. Create your presentation")
-    # print("4. Practice presenting with your group!")
+    print("\n" + "=" * 70)
+    print("PROJECT COMPLETE!")
+    # print("=" * 70)
+    print("\nNext steps:")
+    print("1. Analyze your results")
+    print("2. Try improving your model (add/remove features)")
+    print("3. Create your presentation")
+    print("4. Practice presenting with your group!")
